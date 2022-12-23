@@ -1,7 +1,7 @@
 from PIL import Image
 import numpy as np
 
-im = Image.open('C:\\Users\\79270\Desktop\ВУЗ\Третий курс\Пятый сем\Верстка\Курсач\get image\k.gif')
+im = Image.open('C:\\Users\\79270\Desktop\ВУЗ\Третий курс\Пятый сем\Верстка\Курсач\\utils\drawings\cow.gif')
 im_matrix = np.array(im)
 
 a = []

@@ -8,6 +8,28 @@
     <link rel="stylesheet" href="style/main.css">
 </head>
 <body>
+    <div class="settings">
+        <div class="settingsMenu">
+            <p>Общие</p>
+            <p>Шаблоны&Анимации</p>    
+        </div>
+        <div class="settingsScreen">
+            <div class="general"></div>
+            <div class="dragndrop"></div>
+        </div>
+    </div>
+    <div class="active" id="menu">
+        <h1>Guess the step</h1>
+        <div class="nickname">
+            <p>Введите ник: </p>
+            <input type="text">
+        </div>
+        <div class="buttons">
+            <button class="resetButton">Начать игру</button>
+            <button class="ratingButton">Рейтинг</button>
+            <button>Настройки</button>
+        </div>
+    </div>
     <div class="endgameScreen">
         <div class="data">
             <h1><span class="result"></span></h1>
@@ -45,6 +67,7 @@
             </div>
         </div>
     </div>
+<script src="assets/libraries/particles.min.js"></script>
 <script src="js/main.js" type="module"></script>
 </body>
 </html>
