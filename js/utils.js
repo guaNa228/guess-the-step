@@ -1,4 +1,4 @@
-import { gettingBlurProbability, gettingColorProbability, allowedAnimations, allowedPatterns } from "./settings.js";
+import { gettingBlurProbability, gettingColorProbability, animations, allowedPatterns } from "./settings.js";
 
 export function changeState(boolNum) {
     return boolNum ? 0 : 1;
@@ -80,7 +80,7 @@ export function getRandomColor() {
 }
 
 export function getRandomAnimation() {
-    return Math.floor(Math.random()*allowedAnimations.length);
+    return Math.floor(Math.random()*animations.length);
 }
 
 export function getRandomPattern() {

@@ -301,3 +301,102 @@ body {
 #menu .buttons button:hover{
     transform: scale(1.1);
 }
+
+.settings {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    right: -100%;
+    top: 0;
+    z-index: 8;
+    background: #0096FF;
+    transition: .5s;
+}
+
+.settings.active {
+    right: 0;
+}
+
+.closeSettingsButton {
+    width: 50px;
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.closeSettingsButton:hover {
+    transform: scale(1.1);
+}
+
+.settingsMenu {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    font-size: 24px;
+    font-family: InterBold;
+    color: white;
+    height: 90px;
+}
+
+.settingsMenu p {
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.settingsMenu p:first-child {
+    margin-right: 30px;
+}
+
+.settingsMenu p.chosen {
+    border-bottom: 5px solid white;
+}
+
+.settingsScreen {
+    height: calc(100% - 90px - 10%);
+}
+
+.setgginsButtons {
+    height: 10%;
+}
+
+.general {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.section {
+    flex-basis: 45%;
+    padding: 15px;
+}
+
+.section h2 {
+    color: white;
+    font-family: InterBold;
+    text-decoration: underline;
+}
+
+.settingUnit {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.settingUnit input{
+    margin: 0px 30px;
+}
+
+.settingUnit span.settingName {
+    color: white;
+    font-size: 22px;
+    font-family: Inter;
+}
+
+span.settingValue {
+    color: white;
+    font-size: 22px;
+    font-family: Inter;
+}

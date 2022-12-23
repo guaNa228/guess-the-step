@@ -1,5 +1,5 @@
 import { createRottingMatrix, getRing, filterStringFromObject, getRandomBlur, getRandomColor, getRandomAnimation, formatTime, getRandomPattern } from "./utils.js";
-import { rottingMatrix, rottingMatrixLength, rottingMatrixCenter, rottingStartProbability, footprintLength, choicesNumber, gettingAnimationProbability, allowedAnimations, roundTime, addBestPlayer } from "./settings.js";
+import { rottingMatrix, rottingMatrixLength, rottingMatrixCenter, rottingStartProbability, footprintLength, choicesNumber, gettingAnimationProbability, animations, roundTime, addBestPlayer } from "./settings.js";
 
 let timer = document.querySelector('span.timer');
 let round = document.querySelector('span.roundNumber');
@@ -18,7 +18,7 @@ export class Footprint {
         this.elements = [];
         this.blur = getRandomBlur();
         this.color = getRandomColor();
-        this.animation = (Math.random() <= gettingAnimationProbability) ? allowedAnimations[getRandomAnimation()] + ' 1s ease-in-out infinite' : '';
+        this.animation = (Math.random() <= gettingAnimationProbability) ? animations[getRandomAnimation()] + ' 1s ease-in-out infinite' : '';
     }
 
     // applyEffects() {

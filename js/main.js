@@ -7,16 +7,15 @@ let g;
 
 let resetButtons = document.querySelectorAll('.resetButton');
 let ratingButtons = document.querySelectorAll('.ratingButton');
+let settingsButtons = document.querySelectorAll('.settingsButton');
 let nicknameInputs = document.querySelectorAll('input[type="text"]');
 let menu = document.querySelector('#menu');
 
+let closeSettingsWindowButton = document.querySelector('.closeSettingsButton');
 let endgameScreen = document.querySelector('.endgameScreen');
 let ratingWindow = document.querySelector('.rating');
-let nicknameInput = document.querySelector('.rating input');
+let settingsWindow = document.querySelector('.settings');
 let list = document.querySelector('.rating .list');
-
-if (!nickname) setNickname('Игрок');
-nicknameInput.value = nickname;
 
 ratingWindow.addEventListener('click', function (e) {
     e.stopPropagation();
@@ -27,8 +26,8 @@ ratingWindow.addEventListener('click', function (e) {
 })
 
 nicknameInputs.forEach((input) => {
-    input.addEventListener('input', function () {
-        setNickname(this.value);
+    input.addEventListener('input', (event) => {
+        setNickname(event.target.value);
     });
 });
 
@@ -40,6 +39,16 @@ resetButtons.forEach((button) => {
 
 ratingButtons.forEach((button) => {
     button.addEventListener('click', showRating);
+});
+
+settingsButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        settingsWindow.classList.add('active')
+    });
+});
+
+closeSettingsWindowButton.addEventListener('click', () => {
+    settingsWindow.classList.remove('active');
 });
 
 function resetGame() {

@@ -9,12 +9,64 @@
 </head>
 <body>
     <div class="settings">
+        <img class="closeSettingsButton" src="assets/img/icons/back.svg" alt="">
         <div class="settingsMenu">
-            <p>Общие</p>
-            <p>Шаблоны&Анимации</p>    
+            <p class="chosen">Общие</p>
+            <p>Шаблоны</p>    
         </div>
         <div class="settingsScreen">
-            <div class="general"></div>
+            <div class="general">
+                <div class="section">
+                    <h2>Гниение</h2>
+                    <div class="units">
+                        <div class="settingUnit">
+                            <span class="settingName">Длина матрицы гниения: </span>
+                            <input data-divisor="1" data-order="0" class="rottingInput" type="range" min="3" max="11" step="2">
+                            <span class="settingValue rotting">5</span>
+                        </div>
+                        <div class="settingUnit">
+                            <span class="settingName">Центральная вероятность: </span>
+                            <input data-divisor="100" data-order="1" class="rottingInput" type="range" min="50" max="99">
+                            <span class="settingValue rotting">0.5</span>
+                        </div>
+                        <div class="settingUnit">
+                            <span class="settingName">Вероятность гниения: </span>
+                            <input data-divisor="100" data-order="2" class="rottingInput" type="range" min="3" max="15">
+                            <span class="settingValue rotting">0.5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <h2>Эффекты</h2>
+                    <div class="units">
+                        <div class="settingUnit">
+                            <span class="settingName">Вероятность заблюривания: </span>
+                            <input data-divisor="100" data-order="0" class="effectInput" type="range" min="1" max="90">
+                            <span class="settingValue rotting">5</span>
+                        </div>
+                        <div class="settingUnit">
+                            <span class="settingName">Вероятность окрашивания: </span>
+                            <input data-divisor="100" data-order="1" class="effectInput" type="range" min="1" max="90">
+                            <span class="settingValue rotting">0.5</span>
+                        </div>
+                        <div class="settingUnit">
+                            <span class="settingName">Вероятность появления анимации: </span>
+                            <input data-divisor="100" data-order="2" class="effectInput" type="range" min="1" max="99">
+                            <span class="settingValue rotting">0.5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <h2>Раунд</h2>
+                    <div class="units">
+                        <div class="settingUnit">
+                            <span class="settingName">Длительность раунда: </span>
+                            <input data-divisor="1" class="roundInput" type="range" min="5" max="60">
+                            <span class="settingValue rotting">0.5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="dragndrop"></div>
         </div>
     </div>
@@ -27,7 +79,7 @@
         <div class="buttons">
             <button class="resetButton">Начать игру</button>
             <button class="ratingButton">Рейтинг</button>
-            <button>Настройки</button>
+            <button class="settingsButton">Настройки</button>
         </div>
     </div>
     <div class="endgameScreen">
@@ -36,7 +88,7 @@
             <p class="report">Вы прошли <span class="completedRounds"></span> раундов и набрали <span class="score"></span> очков</p>
             <div class="keys">
                 <div class="key"><img class="resetButton" src="assets/img/icons/refresh.svg" alt=""><p>Новая игра</p></div>
-                <div class="key"><img src="assets/img/icons/settings.svg" alt=""><p>Настройки</p></div>
+                <div class="key"><img class="settingsButton" src="assets/img/icons/settings.svg" alt=""><p>Настройки</p></div>
                 <div class="key"><img class="ratingButton" src="assets/img/icons/star.svg" alt=""><p>Рейтинг</p></div>
             </div>
         </div>
