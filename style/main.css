@@ -1,0 +1,209 @@
+@import url(animations.css);
+
+@font-face {
+    font-family: 'Inter';
+    src: url(../assets/fonts/Inter-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'InterThin';
+    src: url(../assets/fonts/Inter-Thin.ttf);
+}
+
+@font-face {
+    font-family: 'InterBold';
+    src: url(../assets/fonts/Inter-Bold.ttf);
+}
+
+:root {
+    --choices-number: 6;
+}  
+
+body {
+    background-color:  	#0096FF;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gameField {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    align-items: flex-start;
+}
+
+.gameField .left {
+    margin-top: 4.3%;
+    flex-basis: 25%;
+    margin-right: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.left .round {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.round p {
+    font-size: 18px;
+    color: white;
+    font-family: Inter;
+}
+
+.choices {
+    flex-basis: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.choices p {
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    margin-top: 0;
+    font-family: InterBold;
+}
+
+.choicesContainer {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+}
+
+.footprint {
+    aspect-ratio: 1/1;
+    display: grid;
+    grid-template-rows: repeat(32, 1fr);
+    grid-template-columns: repeat(32, 1fr);
+    gap: 1px;
+    background: white;
+}
+
+.filled {
+    background: black;
+}
+
+.border {
+    background: green;
+}
+
+.cell {
+    background: blue;
+}
+
+.endgameScreen {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, .8);
+    z-index: 5;
+    transition: 1s;
+}
+
+.endgameScreen .data {
+    text-align: center;
+    background: #0096FF;
+    padding: 15px;
+    min-width: 500px;
+}
+
+.data.red {
+    background: red;
+}
+
+.data h1 {
+    color: white;
+    font-family: 'InterBold';
+}
+
+.data p {
+    font-size: 20px;
+    color: white;
+    font-family: Inter;
+}
+
+.endgameScreen.active {
+    top: 0;
+    left: 0;
+}
+
+.keys {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.keys .key img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.keys .key p {
+    margin: 0;
+}
+
+.rating {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, .8);
+    left: -100%;
+    top: 0;
+    transition: 1s;
+    z-index: 5;
+}
+
+.rating.active {
+    left: 0;
+}
+
+.rating main {
+    background: #0096FF;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.rating main div {
+    width: 100%;    
+    display: flex;
+    align-items: center;
+}
+
+.rating main div span {
+    font-family: Inter;
+    font-size: 24px;
+    color: white;
+    margin-right: 30px;
+}
+
+.rating main input {
+    font-size: 24px;
+    border: none;
+}
+
+.rating main div p {
+    font-size: 24px;
+    font-family: Inter;
+    color: white;
+}
