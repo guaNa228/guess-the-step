@@ -1,4 +1,4 @@
-import { createRottingMatrix, getRing, filterStringFromObject, getRandomBlur, getRandomColor, getRandomAnimation, formatTime, getRandomPattern } from "./utils.js";
+import { getRing, getRandomBlur, getRandomColor, getRandomAnimation, formatTime, getRandomPattern } from "./utils.js";
 import { rottingMatrix, rottingMatrixLength, rottingMatrixCenter, rottingStartProbability, footprintLength, choicesNumber, gettingAnimationProbability, animations, roundTime, addBestPlayer } from "./settings.js";
 
 let timer = document.querySelector('span.timer');
@@ -28,12 +28,16 @@ export class Footprint {
     //     })
     // }
 
-    // disableEffects() {
-    //     this.elements.forEach((item) => {
-    //         item.style.filter = '';
-    //         item.style.animation = '';
-    //     })
-    // }
+    disableEffects() {
+        this.elements.forEach((item) => {
+            item.style.filter = '';
+            item.style.animation = '';
+            let pixels = item.querySelectorAll('div');
+            pixels.forEach((pixel) => {
+                if (pixel.classList.contains('filled')) pixel.style.background = 'rgb(0, 0, 0)';
+            });
+        })
+    }
 
     compare(otherFootprint) {
         let checkingCounter = 0;
@@ -41,14 +45,12 @@ export class Footprint {
             checkingCounter += +(this.sample[i] == otherFootprint.sample[i]);
         }
 
-        console.log(checkingCounter == this.sample.length);
-
         return checkingCounter == this.sample.length;
     }
 
     draw(parent) {
         let footprintContainer = document.createElement('div');
-        if (!this.main) {
+        if (!this.main && this.game) {
             footprintContainer.addEventListener('click', () => {
                 if (this.compare(this.game.mainFootprint)) {
                     this.game.winRound();

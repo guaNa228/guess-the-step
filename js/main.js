@@ -1,7 +1,8 @@
 // import { Footprint } from "./classes.js";
 // import { arrayToMatrix, getRing, createRottingMatrix } from './utils.js';
-import { Game } from './classes.js'
-import { nickname, setNickname, bestPlayers } from './settings.js';
+import { Footprint, Game } from './classes.js'
+import { patterns } from './patterns.js';
+import { nickname, setNickname, bestPlayers, allowedPatterns, removeAllowedPattern, addAllowedPattern } from './settings.js';
 
 let g;
 
@@ -16,6 +17,24 @@ let endgameScreen = document.querySelector('.endgameScreen');
 let ratingWindow = document.querySelector('.rating');
 let settingsWindow = document.querySelector('.settings');
 let list = document.querySelector('.rating .list');
+
+let generalSelectButton = document.querySelector('.generalSelectButton');
+let dragSelectButton = document.querySelector('.dragSelectButton');
+
+let bannedContainer = document.querySelector('.banned');
+let alllowedContainer = document.querySelector('.allowed');
+
+generalSelectButton.addEventListener('click', function () {
+    this.classList.add('chosen');
+    this.nextElementSibling.classList.remove('chosen');
+    settingsWindow.classList.remove('drag');
+});
+
+dragSelectButton.addEventListener('click', function () {
+    this.classList.add('chosen');
+    this.previousElementSibling.classList.remove('chosen');
+    settingsWindow.classList.add('drag');
+});
 
 ratingWindow.addEventListener('click', function (e) {
     e.stopPropagation();
@@ -75,6 +94,71 @@ function showRating() {
 
     list.innerHTML = bestPlayersHTML ? bestPlayersHTML : 'Список лучших игроков пока пуст :(';
 }
+
+
+function drawPatterns() {
+    let drawnPatterns = [];
+    let drawnPatternsElements = [];
+    
+    for (let i = 0; i < patterns.length; i++) {
+        drawnPatterns.push(new Footprint(patterns[i]));
+        if (allowedPatterns.includes(i)) {
+            drawnPatterns[i].draw(alllowedContainer);
+            drawnPatternsElements.push(drawnPatterns[i].elements[0]);
+            drawnPatternsElements[i].classList.add('allowedPattern');
+        } else {
+            drawnPatterns[i].draw(bannedContainer);
+            drawnPatternsElements.push(drawnPatterns[i].elements[0]);
+            drawnPatternsElements[i].classList.add('bannedPattern');
+        }
+        drawnPatternsElements[i].id = i;
+        drawnPatterns[i].disableEffects();
+    }
+    
+    drawnPatternsElements.forEach((element) => {
+        element.ondragstart = function() {
+            return false;
+        };
+        element.onmousedown = function (e) {
+    
+            element.style.width = element.getBoundingClientRect().width+'px';
+            element.style.height = element.getBoundingClientRect().height+'px';
+            element.style.position = 'absolute';
+            moveAt(e);
+    
+            document.body.appendChild(element);
+    
+            element.style.zIndex = 1000;
+    
+            function moveAt(e) {
+                element.style.left = e.pageX - element.offsetWidth / 2 + 'px';
+                element.style.top = e.pageY - element.offsetHeight / 2 + 'px';
+            }
+    
+            document.onmousemove = function (e) {
+                moveAt(e);
+            }
+    
+            element.onmouseup = function () {
+                if (element.getBoundingClientRect().left<document.body.clientWidth/2 && element.classList.contains('allowedPattern')) {
+                    removeAllowedPattern(element.id);
+                } else if (element.getBoundingClientRect().left>document.body.clientWidth/2 && element.classList.contains('bannedPattern')) {
+                    addAllowedPattern(element.id);
+                }
+                bannedContainer.innerHTML = '<h2>Неиспользуемые</h2>';
+                alllowedContainer.innerHTML = '<h2>Используемые</h2>';
+                element.remove();
+                drawPatterns();
+                document.onmousemove = null;
+                element.onmouseup = null;
+    
+            }
+        }
+    })
+}
+
+drawPatterns();
+
 
 particlesJS("menu", {
     "particles": {
@@ -186,29 +270,3 @@ particlesJS("menu", {
     },
     "retina_detect": true
 });
-
-// let arr = []
-// arr.length = 1024;
-// arr.fill(true);
-
-// console.log(chickenPattern);
-
-// let fprint = new Footprint(humanPattern, true);
-
-// fprint.draw(document.querySelector('#default'))
-
-// let rotprint = new Footprint(humanPattern, true);
-// rotprint.rot();
-// rotprint.draw(document.querySelector('#rotted'));
-// rotprint.applyEffects();
-// // setTimeout(() => {
-// //     rotprint.disableEffects();
-// // }, 3000)
-// // setTimeout(() => {
-// //     rotprint.applyEffects();
-// // }, 6000)
-
-// // let example = [0, 1, 2, 3];
-// // console.log(arrayToMatrix(example));
-
-// // console.log(getRing(778, 32, 2))

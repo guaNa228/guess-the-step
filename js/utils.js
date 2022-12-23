@@ -1,12 +1,5 @@
 import { gettingBlurProbability, gettingColorProbability, animations, allowedPatterns } from "./settings.js";
-
-export function changeState(boolNum) {
-    return boolNum ? 0 : 1;
-}
-
-export function rotIf(probability) {
-    return Math.random() < probability;
-}
+import { patterns } from './patterns.js'
 
 export function createRottingMatrix(n, centralProbability) {
     let rottingMatrix = [];
@@ -22,7 +15,6 @@ export function createRottingMatrix(n, centralProbability) {
 
 export function arrayToMatrix(array) {
     let rowNum = parseInt(Math.sqrt(array.length));
-    console.log(rowNum);
     let matrix = [];
     let tempArray = [];
     for (let i = 0; i < rowNum; i++) {
@@ -84,7 +76,7 @@ export function getRandomAnimation() {
 }
 
 export function getRandomPattern() {
-    return [...allowedPatterns[Math.floor(Math.random()*allowedPatterns.length)]]
+    return [...patterns[allowedPatterns[Math.floor(Math.random()*allowedPatterns.length)]]]
 }
 
 export function formatTime(initial) {

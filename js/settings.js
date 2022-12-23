@@ -22,7 +22,7 @@ export let gettingAnimationProbability = JSON.parse(localStorage.getItem('gettin
 
 export let roundTime = JSON.parse(localStorage.getItem('roundTime')) || 20;
 
-export let allowedPatterns = [...patterns];
+export let allowedPatterns = JSON.parse(localStorage.getItem('allowedPatterns')) || patterns.map((_, index) => index);
 
 export let bestPlayers = JSON.parse(localStorage.getItem('bestPlayers')) || [];
 export let nickname = JSON.parse(localStorage.getItem('nickname')) || 'Игрок';
@@ -31,8 +31,15 @@ export function setNickname(arg) {
     nickname = arg;
 }
 
+export function removeAllowedPattern(patternIndex) {
+    allowedPatterns = allowedPatterns.filter((index) => index!=patternIndex);
+}
+
+export function addAllowedPattern(patternIndex) {
+    allowedPatterns.push(parseInt(patternIndex));
+}
+
 export function addBestPlayer(score) {
-    console.log(nickname);
     let topPlayers = bestPlayers.map((value) => value.nick);
     if (topPlayers.includes(nickname)) {
         if (bestPlayers.filter((value) => value.nick == nickname)[0].score < score) {
@@ -45,10 +52,8 @@ export function addBestPlayer(score) {
     bestPlayers = bestPlayers.sort((a, b) => {
         return a.score < b.score;
     });
-    bestPlayers = bestPlayers.slice(0, 6);
+    bestPlayers = bestPlayers.slice(0, 5);
 }
-
-
 
 let rottingFunctions = [(input) => { rottingMatrixLength = input.value / input.dataset.divisor },
 (input) => { centralProbability = input.value / input.dataset.divisor },
@@ -68,7 +73,6 @@ let rottingBackwardsFunctions = [(input) => {
 let rottingInputs = document.querySelectorAll('.rottingInput');
 
 rottingInputs.forEach((input) => {
-    console.log(parseInt(input.dataset.order));
     rottingBackwardsFunctions[parseInt(input.dataset.order)](input);
     input.addEventListener('change', rottingInputChange)
 });
@@ -130,4 +134,6 @@ addEventListener('beforeunload', () => {
 
     localStorage.setItem('bestPlayers', JSON.stringify(bestPlayers));
     localStorage.setItem('nickname', JSON.stringify(nickname));
+
+    localStorage.setItem('allowedPatterns', JSON.stringify(allowedPatterns));
 });
