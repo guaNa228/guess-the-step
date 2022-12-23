@@ -1,10 +1,7 @@
 // import { Footprint } from "./classes.js";
 // import { arrayToMatrix, getRing, createRottingMatrix } from './utils.js';
 import { Game } from './classes.js'
-import { setNickname } from './settings.js';
-
-let bestPlayers = JSON.parse(localStorage.getItem('bestPlayers')) || [];
-let nickname = JSON.parse(localStorage.getItem('nickname')) || '';
+import { nickname, setNickname, bestPlayers } from './settings.js';
 
 let resetButtons = document.querySelectorAll('.resetButton');
 let ratingButtons = document.querySelectorAll('.ratingButton');
@@ -14,6 +11,17 @@ let endgameScreen = document.querySelector('.endgameScreen');
 let ratingWindow = document.querySelector('.rating');
 let nicknameInput = document.querySelector('.rating input');
 let list = document.querySelector('.rating .list');
+
+if (!nickname) setNickname('Игрок');
+nicknameInput.value = nickname;
+
+ratingWindow.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (e.target==ratingWindow) {
+        this.classList.remove('active');
+        endgameScreen.classList.add('active');
+    }  
+})
 
 nicknameInput.addEventListener('input', function() {
     setNickname(this.value);
@@ -43,10 +51,10 @@ function showRating() {
     
     let bestPlayersHTML = '';
     bestPlayers.forEach((record, index) => {
-        bestPlayersHTML+=`<p>${index+1}. ${record.name} - ${record.score}</p>`
+        bestPlayersHTML+=`<p>${index+1}. ${record.nick} - ${record.score}</p>`
     });
 
-    list.innerHTML = bestPlayersHTML;
+    list.innerHTML = bestPlayersHTML ? bestPlayersHTML : 'Список лучших игроков пока пуст :(';
 }
 
 // let arr = []

@@ -177,17 +177,26 @@ body {
 }
 
 .rating main {
+    position: relative;
     background: #0096FF;
-    padding: 15px;
+    padding: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.rating main div {
+.rating main img {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    width: 20px;
+}
+
+.rating main div:not(.list) {
     width: 100%;    
     display: flex;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .rating main div span {
@@ -206,4 +215,14 @@ body {
     font-size: 24px;
     font-family: Inter;
     color: white;
+}
+
+.list {
+    font-size: 22px;
+    color: white;
+    font-family: InterThin;
+}
+
+.list p {
+    margin: 10px 0px 0px 0px;
 }

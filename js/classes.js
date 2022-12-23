@@ -1,13 +1,13 @@
-import { createRottingMatrix, getRing, filterStringFromObject, getRandomBlur, getRandomColor, getRandomAnimation, formatTime } from "./utils.js";
-import { rottingMatrix, rottingMatrixLength, rottingMatrixCenter, rottingStartProbability, footprintLength, currentPattern, choicesNumber, gettingAnimationProbability, allowedAnimations, roundTime, roundNumber } from "./settings.js";
+import { createRottingMatrix, getRing, filterStringFromObject, getRandomBlur, getRandomColor, getRandomAnimation, formatTime, getRandomPattern } from "./utils.js";
+import { rottingMatrix, rottingMatrixLength, rottingMatrixCenter, rottingStartProbability, footprintLength, choicesNumber, gettingAnimationProbability, allowedAnimations, roundTime, addBestPlayer } from "./settings.js";
 
 let timer = document.querySelector('span.timer');
 let round = document.querySelector('span.roundNumber');
+let points = document.querySelector('span.points');
 
 let endgameScreen = document.querySelector('.endgameScreen');
 let gameResult = document.querySelector('span.result');
 let completedRounds = document.querySelector('p.report span.completedRounds');
-let totalRounds = document.querySelector('p.report span.totalRounds');
 let scoreElement = document.querySelector('p.report span.score');
 
 export class Footprint {
@@ -42,7 +42,7 @@ export class Footprint {
         }
 
         console.log(checkingCounter == this.sample.length);
-        
+
         return checkingCounter == this.sample.length;
     }
 
@@ -105,33 +105,38 @@ export class Game {
         this.choicesElement = document.querySelector('.choicesContainer');
         this.choices = [];
         this.score = 0;
+        this.currentPattern = getRandomPattern();
     }
 
     createMain() {
-        this.mainFootprint = new Footprint(currentPattern, this, true);
+        this.mainFootprint = new Footprint(this.currentPattern, this, true);
+        this.mainFootprint.rot();
     }
 
     createChoices() {
         for (let i = 0; i < choicesNumber - 1; i++) {
-            this.choices[i] = new Footprint(currentPattern, this);
+            this.choices[i] = new Footprint(this.currentPattern, this);
             this.choices[i].rot();
         }
-        
+
     }
 
     drawRound() {
+        this.currentPattern = getRandomPattern();
+
         this.mainElement.innerHTML = '';
         this.choicesElement.innerHTML = '';
 
         this.timeLeft = roundTime;
         this.round += 1;
-        
-        round.textContent = `${this.round}/${roundNumber}`;
+
+        round.textContent = `${this.round}`;
         timer.textContent = formatTime(this.timeLeft);
+        points.textContent = `${Math.round(this.score)}`;
 
         this.roundInterval = setInterval(() => {
-            this.timeLeft-=1;
-            if (this.timeLeft==0) {
+            this.timeLeft -= 1;
+            if (this.timeLeft == 0) {
                 clearInterval(this.roundInterval);
                 this.lose();
             }
@@ -150,28 +155,20 @@ export class Game {
     }
 
     winRound() {
-        if (this.round<roundNumber) {
-            this.choices = [];
-            this.mainFootprint = undefined;
-            this.score += (this.timeLeft/roundTime)*100;
-            clearInterval(this.roundInterval);
-            this.drawRound();
-        } else {
-            gameResult.textContent = 'Вы выиграли';
-            completedRounds.textContent = this.round;
-            totalRounds.textContent = roundNumber;
-            scoreElement.textContent = Math.round(this.score);
-            clearInterval(this.roundInterval);
-            endgameScreen.classList.add('active');
-        }
+        this.choices = [];
+        this.mainFootprint = undefined;
+        this.score += (this.timeLeft / roundTime) * 100;
+        clearInterval(this.roundInterval);
+        this.drawRound();
     }
 
     lose() {
-        gameResult.textContent = 'Вы проиграли';
+        this.score = Math.round(this.score);
+        gameResult.textContent = 'Игра окончена';
         completedRounds.textContent = this.round - 1;
-        totalRounds.textContent = roundNumber;
-        scoreElement.textContent = Math.round(this.score);
+        scoreElement.textContent = this.score;
         clearInterval(this.roundInterval);
         endgameScreen.classList.add('active');
+        addBestPlayer(this.score);
     }
 }
